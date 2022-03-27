@@ -1,0 +1,46 @@
+---
+title: "Football Analytics_v0.1"
+author: "Luke N. Deasy"
+date: "6/19/2021"
+output: html_document
+---
+
+```{r Preparation and Data Entry}
+# Reading in key sets
+library(tidyverse)
+library(GGally)
+
+# Setting working directory
+setwd("C:/Users/luke/Dropbox (Personal)/Personal/Football Analytics/Data")
+
+# Reading in raw data
+salary_dat_2020 <- read_csv("2020_salary_data_raw.csv")
+
+# Examining the data
+salary_dat_2020 %>% 
+  head
+```
+
+```{r Manipulating Data}
+# Manipulating the data
+salary_dat_2020 <- salary_dat_2020 %>% 
+  mutate(Team = factor(Team)) %>% 
+  mutate(Position = factor(Position))
+
+sub("\\.*", "", salary_dat_2020$Player[1])
+
+salary_dat_2020$Player[1]
+
+# Reexamining data now
+salary_dat_2020 %>% 
+  head
+```
+
+
+```{r EDA}
+# Exploratory Data Analysis on Team and Salary
+ggplot(salary_dat_2020, aes(x = Salary)) +
+  geom_histogram(bins = 15, col = "black",
+                 aes(fill = Team))
+```
+
